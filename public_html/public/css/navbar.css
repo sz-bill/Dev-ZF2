@@ -1,0 +1,31 @@
+.navbar-nav {}
+.navbar-nav > li {}
+
+@media screen and (max-width: 749px) {
+    .navbar-nav li ul{ visibility: visible; position:initial; top:auto; left: auto; border: 0px; min-width: auto; background: none; list-style: none;}
+    .navbar-nav li ul > li {border: 0px; padding-left: 0px; line-height: 30px; color: #fff; list-style: none;}
+    .navbar-nav li ul > li a { color: #fff;}
+}
+@media screen and (max-width: 600px) {
+    .navbar-nav li ul{ visibility: visible; position:initial; top:auto; left: auto; border: 0px; min-width: auto; background: none; list-style: none;}
+    .navbar-nav li ul > li {border: 0px; padding-left: 0px; line-height: 30px; color: #fff; list-style: none;}
+    .navbar-nav li ul > li a { color: #fff;}
+}
+
+@media screen and (max-width: 500px) {
+    .navbar-nav li ul{ visibility: visible; position:initial; top:auto; left: auto; border: 0px; min-width: auto; background: none; list-style: none;}
+    .navbar-nav li ul > li {border: 0px; padding-left: 0px; line-height: 30px; color: #fff; list-style: none;}
+    .navbar-nav li ul > li a { color: #fff;}
+}
+@media screen and (max-width: 400px) {
+    .navbar-nav li ul{ visibility: visible; position:initial; top:auto; left: auto; border: 0px; min-width: auto; background: none; list-style: none;}
+    .navbar-nav li ul > li {border: 0px; padding-left: 0px; line-height: 30px; color: #fff;list-style: none;}
+    .navbar-nav li ul > li a { color: #fff;}
+}
+
+
+@media screen and (min-width: 750px) {
+    .navbar-nav li ul {visibility: hidden; position: absolute; top:50px; left: 0px; background: #fff; margin: 0px; padding: 0px; list-style: none; min-width:200px; border-top: 1px solid #333;}
+    .navbar-nav li:hover ul {visibility: visible; }
+    .navbar-nav li ul > li{ padding:0px 5px 3px 15px; line-height: 30px; border: 1px solid #ddd; border-top: 0px;}
+}

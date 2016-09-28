@@ -1,0 +1,49 @@
+<?php
+return array(
+    'controllers' => array(
+        'invokables' => array(
+            'Tutorial_Controller_T1' => 'Tutorial\Controller\T1Controller',
+            'Tutorial_Controller_T2' => 'Tutorial\Controller\T2Controller'
+        )
+    ),
+    'router' => array(
+        'routes' => array(
+            // 控制器1配置
+            'tutorial1' => array(
+                'type' => 'segment', // segment|Literal
+                'options' => array(
+                    'route' => '/tutorial/t1[/][:action][/:id]', // [空间名 / 控制器别名 / 函数名称 / 其它参数]
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Tutorial_Controller_T1', // 控制器所在路径及名称
+                        'action' => 'index'
+                    )
+                )
+            ),
+            
+            // 控制器2配置
+            'tutorial2' => array(
+                'type' => 'segment', // segment|Literal
+                'options' => array(
+                    'route' => '/tutorial/t2[/][:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Tutorial_Controller_T2',
+                        'action' => 'index'
+                    )
+                )
+            )
+        )
+    ),
+    'view_manager' => array(
+        'template_path_stack' => array(
+            'Tutorial' => __DIR__ . '/../view'
+        )
+    )
+);

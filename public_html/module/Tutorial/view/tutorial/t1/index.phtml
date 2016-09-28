@@ -1,0 +1,92 @@
+<?php include_once 'breadcrumbs-header.phtml';?>
+<ul>
+	<li><h3>设置模块的访问路由</h3> <strong>打开文件 module <?=BC?> 模块名称 <?=BC?> config <?=BC?> module.config.php</strong>
+		<div>找目录节点 router 下的子节点 route， 如 : 'route' => '/tutorial', 修改这值即可</div></li>
+    <li><h3>在模板文件也是可以同包含相近路径中的模板文件的，</h3> 如: [include_once        'breadcrumbs-header.phtml';]</li>
+	<li><h3><a href="http://c.test.com/tutorial/t2/t2layout">调用自定布局模板</a>，  <span style="text-decoration: line-through;">使用后，系统原有的布局将失效</span></h3> <br>
+        1. 首先在模块的 view/layout/ 目录下建立好 而已文件 t2layout.phtml<br>
+        2. 在控制相应的Action方法中调用 这个代码<div style="background: black; color: #fff; padding: 10px;"><br>
+        public function t2layoutAction(){<br>
+        //$this->init();                       <br>
+        $this->layout('layout/t2layout'); // 这个布局文件就是第1步的文件<br>
+       // return $this->view;                          <br>
+    }<br></div>
+    </li>
+	<li><h3><a href="http://c.test.com/tutorial/t2/">同模块下多控制器使用方式</a></h3> <strong>打开文件 module <?=BC?> 模块名称 <?=BC?> config <?=BC?> module.config.php</strong>
+		<div style="background: #eee; padding: 10px;">
+			<p>
+				'routes' =&gt; array(<br> // 控制器1配置<br> 'tutorial1' =&gt; array(<br>
+				'type' =&gt; 'segment', // segment|Literal<br> 'options' =&gt;
+				array(<br> 'route' =&gt; '/tutorial/t1[/][:action][/:id]', // <span
+					style="color: red">(<a href="/tutorial/t1/index">http://xxxx.com/tutorial/t1</a>)
+				</span>[空间名 / 控制器别名 / 函数名称 / 其它参数]<br> 'constraints' =&gt; array(<br>
+				'action' =&gt; '[a-zA-Z][a-zA-Z0-9_-]*',<br> 'id' =&gt; '[0-9]+'<br>
+				),<br> 'defaults' =&gt; array(<br> 'controller' =&gt;
+				'Tutorial_Controller_T1', // 控制器所在路径及名称<br> 'action' =&gt; 'index'<br>
+				)<br> )<br> ),<br> <br> // 控制器2配置<br> 'tutorial2' =&gt; array(<br>
+				'type' =&gt; 'segment', // segment|Literal<br> 'options' =&gt;
+				array(<br> 'route' =&gt; '/tutorial/t2[/][:action][/:id]', //<span
+					style="color: red">(<a href="/tutorial/t2/index">http://xxxx.com/tutorial/t2</a>)
+				</span><br> 'constraints' =&gt; array(<br> 'action' =&gt;
+				'[a-zA-Z][a-zA-Z0-9_-]*',<br> 'id' =&gt; '[0-9]+'<br> ),<br>
+				'defaults' =&gt; array(<br> 'controller' =&gt;
+				'Tutorial_Controller_T2',<br> 'action' =&gt; 'index'<br> )<br> )<br>
+				)<br> )
+			</p>
+			<p>&nbsp;</p>
+
+		</div>
+	</li>
+    <li><h3>头部导航菜单的设置</h3>
+        <div>1. 编辑文件 <b>module.config.php</b> 添加内容</div>
+        <div style="background: black; color: #fff; padding: 10px;">
+    'service_manager'  =>   array(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'factories'  =>   array(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'translator'  => 'Zend\I18n\Translator\TranslatorServiceFactory',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'navigation'  => 'Zend\Navigation\Service\DefaultNavigationFactory',&nbsp;//&nbsp;<--&nbsp;add&nbsp;this<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+&nbsp;&nbsp;&nbsp; 'navigation'  =>   array(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'default'  =>   array(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'label'  => '我的菜单',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'route'  => 'tutorial1',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'order'  => '20',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'pages'  =>   array(&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'label'  => '菜单导航A',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'route'  => 'home',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'action'  => 'add',&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'label'  => '菜单导航B',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'route'  => 'home',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'action'  => 'edit',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'label'  => '菜单导航C',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'route'  => 'home',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'action'  => 'delete',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;),<br>
+        </div>
+        <div>2. 编辑布局文件 <b>layout.phtml</b> 替换内容</div>
+        <div style="background: black; color: #fff; padding: 10px;">
+            <span style="color:red">这是原内容</span><br>
+&lt;div&nbsp;class="collapse&nbsp;navbar-collapse"&gt;&nbsp;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&nbsp;class="nav&nbsp;navbar-nav"&gt;&nbsp;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&nbsp;class="active"&gt;&lt;a&nbsp;href="&lt;?php&nbsp;echo&nbsp;$this-&gt;url('home')&nbsp;?&gt;"&gt;&lt;?php&nbsp;echo&nbsp;$this-&gt;translate('Home')&nbsp;?&gt;&lt;/a&gt;&lt;/li&gt;&nbsp;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;&nbsp;  <br>
+&lt;/div&gt;&nbsp;  <br><br>
+
+<span style="color:red">这是新内容</span><br>
+&lt;div&nbsp;class="collapse&nbsp;navbar-collapse"&gt;&nbsp;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php&nbsp;echo&nbsp;$this-&gt;navigation('navigation')-&gt;menu()-&gt;setUlClass('nav&nbsp;navbar-nav')?&gt;&nbsp;  <br>
+&lt;/div&gt;&nbsp;  <br>
+        </div>
+    </li>
+	<li><h3>头部导航菜单的设置</h3><div style="background: black; color: #fff; padding: 10px;">cccccc</div></li>
+</ul>

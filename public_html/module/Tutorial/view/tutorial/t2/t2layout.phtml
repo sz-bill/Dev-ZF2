@@ -1,0 +1,15 @@
+<h1>我使用了自写的布局控制</h1>
+<div>
+	<h2>
+		布局文件是 view -> layout -> m2layout.phtml<br>
+	</h2>
+</div>
+<br><br><hr><br><br>
+<a href="http://c.test.com/tutorial/t2/t2layout">调用自定布局模板</a>，  使用后，系统原有的布局将失效<br>
+        1. 首先在模块的 view/layout/ 目录下建立好 而已文件 t2layout.phtml<br>
+        2. 在控制相应的Action方法中调用 这个代码<div style="background: black; color: #fff; padding: 10px;"><br>
+        public function t2layoutAction(){<br>
+        //$this->init();                       <br>
+        $this->layout('layout/t2layout'); // 这个布局文件就是第1步的文件<br>
+       // return $this->view;                          <br>
+    }<br></div>
